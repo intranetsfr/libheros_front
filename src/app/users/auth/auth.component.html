@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="content">
+        <form autocomplete="off" [formGroup]="authForm" (submit)="loginWithEmail()">
+
+            <mat-card appearance="outlined">
+                <mat-card-header>
+                    <mat-card-title>Connexion</mat-card-title>
+                    <mat-card-subtitle></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                        bred for hunting.
+                    </p>
+                    <p>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>e-mail</mat-label>
+                            <input formControlName="email" matInput type="email" placeholder="exemple@domain.tld">
+                            <mat-icon matSuffix>mail</mat-icon>
+                        </mat-form-field>
+                    </p>
+                    <p>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>votre mot de passe</mat-label>
+                            <input formControlName="password" matInput type="password" placeholder="*************">
+                            <mat-icon matSuffix>key</mat-icon>
+                        </mat-form-field>
+                    </p>
+                </mat-card-content>
+                <mat-card-actions align="end">
+
+                    <button mat-raised-button [disabled]="authForm.invalid || loading">
+                        @if (loading) {
+                        <span>Chargement...</span>
+
+                        }@else {
+
+                        <span>Se connecter</span>
+                        }
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+        <br />
+        <br />
+
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                pas encore inscrit ?
+            </mat-card-content>
+            <mat-card-actions align="end">
+
+                <button mat-raised-button routerLink="/subscribe">
+                    inscription
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

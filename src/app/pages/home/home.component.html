@@ -1,0 +1,128 @@
+<div class="app-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <button mat-raised-button (click)="openNewListModal()">+ Nouvelle Liste</button>
+    </div>
+
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel (opened)="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title> <mat-icon>search</mat-icon> rechercher </mat-panel-title>
+          <mat-panel-description>
+
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <form>
+          <mat-form-field appearance="outline">
+            <mat-label>nom à chercher</mat-label>
+            <input matInput placeholder="test">
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-hint>Hint</mat-hint>
+          </mat-form-field>
+        </form>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> <mat-icon>add</mat-icon> ajouter </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <form-task/>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <ul class="task-lists">
+      @for (list of taskLists; track $index) {
+
+      <li (click)="selectList(list)" [class.selected]="list.id === selectedList?.id">
+        {{ list.name }}
+        <button class="btn btn-delete" (click)="confirmDeleteList(list, $event)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </li>
+      }
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    @if (selectedList) {
+
+    <div class="task-section">
+      <mat-card>
+        <form [formGroup]="taskForm" (submit)="addTask()">
+          <mat-card-header>
+            <h2>{{ selectedList.name }}</h2>
+          </mat-card-header>
+          <mat-card-content>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Description courte</mat-label>
+              <input formControlName="short_description" matInput required>
+              <mat-icon matSuffix>reload</mat-icon>
+              <mat-error align="end">ce champ est obligatoire</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Description longue</mat-label>
+              <textarea formControlName="long_description" matInput placeholder=""></textarea>
+              <mat-icon matSuffix>reload</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>date</mat-label>
+              <input formControlName="date" matInput type="date" required>
+              <mat-icon matSuffix>calendar</mat-icon>
+              <mat-error align="end">ce champ est obligatoire</mat-error>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions>
+            <button type="submit" mat-raised-button>
+              <mat-icon>add</mat-icon>
+              Ajouter tâche
+            </button>
+
+          </mat-card-actions>
+        </form>
+      </mat-card>
+      <ul class="tasks">
+        @for (task of tasks; track $index) {
+
+        <li [class.completed]="task.completed">
+          <span>{{ task.shortDescription }}</span>
+          <button class="btn btn-flag" (click)="toggleTaskCompletion(task)">
+            {{ task.completed ? '↩' : '✔' }}
+          </button>
+        </li>
+        }
+      </ul>
+      @if (completedTasks.length) {
+
+      <div class="completed-tasks">
+        <h3 (click)="toggleCompletedTasks()">Mes tâches terminées ({{ completedTasks.length }})</h3>
+        <ul>
+          @for (task of completedTasks; track $index) {
+          <li>
+            {{ task.shortDescription }}
+            <button class="btn btn-flag" (click)="toggleTaskCompletion(task)">↩</button>
+          </li>
+          }
+        </ul>
+      </div>
+      }
+    </div>
+    }
+  </main>
+
+  <!-- Right Sidebar -->
+  @if (selectedTask) {
+
+  <aside class="right-sidebar">
+    <h2>Détails de la tâche</h2>
+    <p><strong>Description courte :</strong> {{ selectedTask.shortDescription }}</p>
+    <p><strong>Description longue :</strong> {{ selectedTask.longDescription }}</p>
+    <p><strong>Date d'échéance :</strong> {{ selectedTask.dueDate }}</p>
+    <p><strong>Date de création :</strong> {{ selectedTask.creationDate }}</p>
+    <button class="btn btn-delete" (click)="confirmDeleteTask(selectedTask)">Supprimer</button>
+  </aside>
+  }
+</div>

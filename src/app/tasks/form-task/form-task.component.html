@@ -1,0 +1,12 @@
+<form [formGroup]="newTaskForm" (submit)="addNewTask()">
+    <mat-form-field appearance="outline">
+        <mat-label>ajouter une tache</mat-label>
+        <input matInput placeholder="demo" formControlName="taskName" required>
+        <mat-icon matSuffix>description</mat-icon>
+        <mat-error align="end">ce champs est obligatoire</mat-error>
+    </mat-form-field>
+    <br />
+    <button mat-mini-fab [disabled]="!newTaskForm.valid">
+        <mat-icon>check</mat-icon>
+    </button>
+</form>
