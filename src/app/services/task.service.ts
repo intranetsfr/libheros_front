@@ -15,9 +15,18 @@ export class TaskService {
     return this.http.get<any>(`${this.utilsService.getDefaultApiUrl()}/task/get`, { headers });
   }
 
+  searchTasks(taskToFind:string): Observable<any> {
+    const headers = this.utilsService.getHeader();
+    return this.http.get<any>(`${this.utilsService.getDefaultApiUrl()}/task/search?title=${taskToFind}`, { headers });
+  }
+
   addTask(task: any): Observable<any> {
     const headers = this.utilsService.getHeader();
     return this.http.post<any>(`${this.utilsService.getDefaultApiUrl()}/task/addTask`, task, { headers });
+  }
+  addSubtask(id:number, subtask: any): Observable<any> {
+    const headers = this.utilsService.getHeader();
+    return this.http.post<any>(`${this.utilsService.getDefaultApiUrl()}/task/addSubTask`, {id:id, subtask:subtask}, { headers });
   }
   
   updateTask(taskId: string, updates: any): Observable<any> {
