@@ -25,8 +25,6 @@ export class FormTaskComponent implements OnInit {
   constructor(private fb: FormBuilder, private taskService:TaskService) {
   }
   ngOnInit(): void {
-    console.log("ok");
-
     this.newTaskForm = this.fb.group(
       {
         taskName: ['', [Validators.required]]
@@ -35,7 +33,8 @@ export class FormTaskComponent implements OnInit {
   }
   addNewTask(){
     if(this.newTaskForm.valid){
-      this.taskService.addTask(this.newTaskForm.value.taskName).subscribe(result=>{
+      this.taskService.addTask({title:this.newTaskForm.value.taskName}).subscribe(result=>{
+        console.log(result);
         this.newTaskAdded.emit(result);
         this.newTaskForm.reset();
       })
