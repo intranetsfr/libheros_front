@@ -12,20 +12,20 @@ export class TaskService {
   
   getTasks(): Observable<any> {
     const headers = this.utilsService.getHeader();
-    return this.http.get<any>(`${this.utilsService.getDefaultApiUrl()}/tasks`, { headers });
+    return this.http.get<any>(`${this.utilsService.getDefaultApiUrl()}/task/get`, { headers });
   }
 
   addTask(task: any): Observable<any> {
     const headers = this.utilsService.getHeader();
-    return this.http.post<any>(`${this.utilsService.getDefaultApiUrl()}/tasks`, task, { headers });
+    return this.http.post<any>(`${this.utilsService.getDefaultApiUrl()}/task/addTask`, task, { headers });
   }
   
   updateTask(taskId: string, updates: any): Observable<any> {
     const headers = this.utilsService.getHeader();
-    return this.http.put<any>(`${this.utilsService.getDefaultApiUrl()}/tasks/${taskId}`, updates, { headers });
+    return this.http.put<any>(`${this.utilsService.getDefaultApiUrl()}/task/${taskId}`, updates, { headers });
   }
   deleteTask(taskId: string): Observable<any> {
     const headers = this.utilsService.getHeader();
-    return this.http.delete<any>(`${this.utilsService.getDefaultApiUrl()}/tasks/${taskId}`, { headers });
+    return this.http.delete<any>(`${this.utilsService.getDefaultApiUrl()}/task/${taskId}`, { headers });
   }
 }
