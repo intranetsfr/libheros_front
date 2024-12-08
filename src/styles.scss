@@ -1,19 +1,76 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 
 html {
-  @include mat.theme((
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
-}/* You can add global styles to this file, and also import other style files */
+  @include mat.theme((color: (theme-type: light,
+        primary: mat.$magenta-palette,
+      ),
+      typography: "Poppins",
+      density: 0,
+    ));
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+
+  .sidebar {
+
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+
+  }
+
+  detail-task {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+
+    & .main-content {
+      width: 100%;
+      display: inline-block;
+
+      & .task-section {
+        width: 100%;
+      }
+
+      &.withRightSidebar {
+        width: 70%;
+      }
+    }
+
+    & .right-sidebar {
+      display: inline-block;
+      width: 29%;
+      background-color: #f9f9f9;
+      padding: 0px 10px;
+      margin-left: 10px;
+      border-left: 1px solid #ddd;
+
+
+    }
+  }
+
+}

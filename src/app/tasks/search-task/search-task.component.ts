@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,32 +18,27 @@ import { TaskService } from '../../services/task.service';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatIconModule],
+    MatIconModule,
+  ],
   templateUrl: './search-task.component.html',
-  styleUrl: './search-task.component.scss'
+  styleUrl: './search-task.component.scss',
 })
 export class SearchTaskComponent {
   @Output()
   listTask = new EventEmitter(true);
   searchTaskForm!: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private taskService: TaskService
-  ) {}
+  constructor(private fb: FormBuilder, private taskService: TaskService) {}
   ngOnInit(): void {
     this.searchTaskForm = this.fb.group({
       taskName: ['', [Validators.required]],
     });
   }
-  searchList(){
-    if(this.searchTaskForm.valid){
-      let taskName = this.searchTaskForm.controls['taskName'].value;
-      if(taskName.length > 1){
-        this.taskService.searchTasks(taskName).subscribe(result=>{
-          this.listTask.emit(result);
-        })
-      }
-    }
+  searchList() {
+    let taskName = this.searchTaskForm.controls['taskName'].value;
+
+    this.taskService.searchTasks(taskName).subscribe((result) => {
+      this.listTask.emit(result);
+    });
   }
 }

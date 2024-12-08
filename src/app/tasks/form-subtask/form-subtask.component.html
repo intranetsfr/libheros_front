@@ -1,18 +1,18 @@
 <form [formGroup]="newSubTaskForm" (submit)="submitSubTask()">
     <mat-card-content>
-        <p>add new sub task</p>
+        <p>ajouter une tâche à cette liste</p>
         <p>
 
             <mat-form-field appearance="outline">
-                <mat-label>add short description</mat-label>
-                <input matInput placeholder="demo" formControlName="short_description" required>
+                <mat-label>Description courte</mat-label>
+                <input matInput placeholder="" formControlName="short_description" required>
                 <mat-icon matSuffix>description</mat-icon>
                 <mat-error align="end">ce champs est obligatoire</mat-error>
             </mat-form-field>
         </p>
         <p>
             <mat-form-field appearance="outline">
-                <mat-label>add long description</mat-label>
+                <mat-label>Description longue</mat-label>
                 <textarea matInput placeholder="demo" formControlName="long_description"></textarea>
                 <mat-icon matSuffix>description</mat-icon>
             </mat-form-field>
@@ -20,17 +20,17 @@
         <p>
 
             <mat-form-field appearance="outline">
-                <mat-label>date</mat-label>
-                <input matInput type="date" formControlName="date" required>
+                <mat-label>date d'écheance</mat-label>
+                <input matInput type="date" formControlName="date_end" required>
                 <mat-icon matSuffix>today</mat-icon>
                 <mat-error align="end">ce champs est obligatoire</mat-error>
             </mat-form-field>
         </p>
     </mat-card-content>
     <mat-card-actions align="end">
-        <button mat-raised-button>
+        <button mat-raised-button [disabled]="!newSubTaskForm.valid">
             <mat-icon>add</mat-icon>
-            add subtask
+            ajouter à la liste
         </button>
     </mat-card-actions>
 </form>
