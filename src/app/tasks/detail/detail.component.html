@@ -14,7 +14,7 @@
                     @if (subTaskListPending && subTaskListPending.length > 0) {
 
                         @for (subtask of subTaskListPending; track $index) {
-                        <subtask-item [subTask]="subtask" (subTaskDetailEvent)="showDetailSubtask(subtask)" />
+                        <subtask-item [subTask]="subtask" (subTaskDetailEvent)="showDetailSubtask(subtask)" (subTaskUpdated)="getSubTask(task.id)" />
                         }
                     }@else{
                         <p align="center">
@@ -26,7 +26,7 @@
 
                     @if (subTaskListComplete && subTaskListComplete.length > 0) {
                         @for (subtask of subTaskListComplete; track $index) {
-                        <subtask-item [subTask]="subtask" (subTaskDetailEvent)="showDetailSubtask(subtask)" />
+                        <subtask-item [subTask]="subtask" (subTaskDetailEvent)="showDetailSubtask(subtask)" (subTaskUpdated)="getSubTask(task.id)" />
                         }
                     }@else{
                         <p align="center">
