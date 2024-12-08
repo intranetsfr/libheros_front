@@ -45,10 +45,9 @@ export class FormTaskComponent implements OnInit {
         .addTask({ title: this.newTaskForm.value.taskName })
         .subscribe({
           next: (result) => {
-            console.log(result);
             this.newTaskAdded.emit(result);
             this.newTaskForm.reset();
-            this.snackBar.open('Task added successfully!', 'Close', {
+            this.snackBar.open('Nouvelle liste de tâche crée', 'Fermer', {
               duration: 3000,
               horizontalPosition: 'right',
               verticalPosition: 'top',
@@ -58,8 +57,8 @@ export class FormTaskComponent implements OnInit {
             console.error(error);
             const errorMessage =
               error?.error?.message ||
-              'An error occurred while adding the task.';
-            this.snackBar.open(errorMessage, 'Close', {
+              'Une erreur est survenue lors de la création de la liste de tache.';
+            this.snackBar.open(errorMessage, 'Fermer', {
               duration: 3000,
               horizontalPosition: 'right',
               verticalPosition: 'top',

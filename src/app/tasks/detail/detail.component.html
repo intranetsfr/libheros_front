@@ -1,6 +1,52 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>{{task.title}}</mat-card-title>
-    </mat-card-header>
-    <form-subtask [task]="task"/>
-</mat-card>
+<main class="main-content {{withDetail()}}">
+    <div class="task-section">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{task.title}}</mat-card-title>
+            </mat-card-header>
+            <form-subtask [task]="task" (newSubTaskAdded)="getSubTask(task.id)" />
+        </mat-card>
+        <br />
+        <mat-card>
+
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+                <mat-tab label="Mes tâches en cours">
+                    @if (subTaskListPending && subTaskListPending.length > 0) {
+
+                        @for (subtask of subTaskListPending; track $index) {
+                        <subtask-item [subTask]="subtask" (subTaskDetailEvent)="showDetailSubtask(subtask)" (subTaskUpdated)="getSubTask(task.id)" />
+                        }
+                    }@else{
+                        <p align="center">
+                            Aucune tâche en cours crée
+                        </p>
+                    }
+                </mat-tab>
+                <mat-tab label="Mes tâches terminées">
+
+                    @if (subTaskListComplete && subTaskListComplete.length > 0) {
+                        @for (subtask of subTaskListComplete; track $index) {
+                        <subtask-item [subTask]="subtask" (subTaskDetailEvent)="showDetailSubtask(subtask)" (subTaskUpdated)="getSubTask(task.id)" />
+                        }
+                    }@else{
+                        <p align="center">
+                            Aucune tâche en terminées crée
+                        </p>
+                    }
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card>
+    </div>
+</main>
+
+@if (selectedSubTask ) {
+
+<aside class="right-sidebar">
+    <p>{{selectedSubTask.createdAt | date:'fullDate'}} à {{task.createdAt | date:'shortTime'}}</p>
+    <mat-divider></mat-divider>
+    <button mat-raised-button (click)="deleteSubtask(selectedSubTask)">
+        <mat-icon>delete</mat-icon>
+        supprimer
+    </button>
+</aside>
+}

@@ -1,17 +1,17 @@
 <div class="app-container">
   <aside class="sidebar">
     <div class="sidebar-header">
-      
+
     </div>
     <mat-accordion class="example-headers-align">
       <mat-expansion-panel (opened)="true">
         <mat-expansion-panel-header>
-          <mat-panel-title> <mat-icon>search</mat-icon> search </mat-panel-title>
+          <mat-panel-title> <mat-icon>search</mat-icon> recherche </mat-panel-title>
           <mat-panel-description>
 
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <search-task />
+        <search-task (listTask)="filterTasks($event)"/>
 
       </mat-expansion-panel>
       <mat-expansion-panel>
@@ -19,47 +19,35 @@
           <mat-panel-title> <mat-icon>add</mat-icon> ajouter </mat-panel-title>
 
         </mat-expansion-panel-header>
-        <form-task (newTaskAdded)="getAllTasks()"/>
+        <form-task (newTaskAdded)="getAllTasks()" />
       </mat-expansion-panel>
     </mat-accordion>
     <mat-list>
+      @if (taskLists) {
       <div mat-subheader>Notes ({{taskLists.length}})</div>
-      
+
       @for (task of taskLists; track $index) {
-        <mat-list-item style="height: auto;">
-          <mat-icon matListItemIcon>description</mat-icon>
-          <div matListItemTitle>{{task.title}}</div>
-          <div matListItemLine>{{task.createdAt}}</div>
-          <div matListItemLine align="end" style="padding: 15px 10px;">
-            <button mat-mini-fab style="background-color: rgba(255,0,0,.5);">
-              <mat-icon>delete</mat-icon>
-            </button>
-            <button mat-mini-fab (click)="selectTask(task)">
-              <mat-icon>arrow_right</mat-icon>
-            </button>
-          </div>
-        </mat-list-item>
-        
+      <mat-list-item style="height: auto;">
+        <mat-icon matListItemIcon>description</mat-icon>
+        <div matListItemTitle>{{task.title}}</div>
+        <div matListItemLine>{{task.createdAt | date:'fullDate'}}</div>
+        <div matListItemLine>à {{task.createdAt | date:'shortTime'}} </div>
+        <div matListItemLine align="end" style="padding: 15px 10px;">
+          <button mat-mini-fab style="background-color: rgba(255,0,0,.5);">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-mini-fab (click)="selectTask(task)">
+            <mat-icon>arrow_right</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+
+      }
       }
     </mat-list>
   </aside>
 
-  <!-- Main Content -->
-  <main class="main-content">
-    <div class="task-section">
-      @if (selectedTask) {
-        <detail-task [task]="selectedTask"/>
-      }
-      <mat-card>
-      </mat-card>
-    </div>
-  </main>
-
-  <!-- Right Sidebar -->
   @if (selectedTask) {
-
-  <aside class="right-sidebar">
-
-  </aside>
+  <detail-task [task]="selectedTask" />
   }
 </div>

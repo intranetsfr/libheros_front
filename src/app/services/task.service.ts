@@ -24,9 +24,17 @@ export class TaskService {
     const headers = this.utilsService.getHeader();
     return this.http.post<any>(`${this.utilsService.getDefaultApiUrl()}/task/addTask`, task, { headers });
   }
-  addSubtask(id:number, subtask: any): Observable<any> {
+  addSubtask(taskId:number, subtask: any): Observable<any> {
     const headers = this.utilsService.getHeader();
-    return this.http.post<any>(`${this.utilsService.getDefaultApiUrl()}/task/addSubTask`, {id:id, subtask:subtask}, { headers });
+    return this.http.post<any>(`${this.utilsService.getDefaultApiUrl()}/task/addSubTask?taskId=${taskId}`, subtask, { headers });
+  }
+  setSubtaskStatus(status:string,subtaskId:number): Observable<any> {
+    const headers = this.utilsService.getHeader();
+    return this.http.post<any>(`${this.utilsService.getDefaultApiUrl()}/task/setSubTaskStatus?subtaskId=${subtaskId}`, {status:status}, { headers });
+  }
+  getSubtask(taskId:number): Observable<any> {
+    const headers = this.utilsService.getHeader();
+    return this.http.get<any>(`${this.utilsService.getDefaultApiUrl()}/task/getSubTask?taskId=${taskId}`, { headers });
   }
   
   updateTask(taskId: string, updates: any): Observable<any> {

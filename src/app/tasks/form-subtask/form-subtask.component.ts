@@ -41,7 +41,7 @@ export class FormSubtaskComponent {
     this.newSubTaskForm = this.fb.group({
       short_description: ['', [Validators.required]],
       long_description: [''],
-      date: ['', [Validators.required]],
+      date_end: ['', [Validators.required]],
     });
   }
   submitSubTask() {

@@ -14,6 +14,7 @@ import { SearchTaskComponent } from "../../tasks/search-task/search-task.compone
 import { Task } from '../../models/Task';
 import { TaskService } from '../../services/task.service';
 import { DetailComponent } from "../../tasks/detail/detail.component";
+import { CommonModule } from '@angular/common';
 
 export interface Section {
   name: string;
@@ -22,6 +23,7 @@ export interface Section {
 @Component({
   selector: 'app-home',
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatSidenavModule,
     MatListModule,
@@ -53,6 +55,10 @@ export class HomeComponent implements OnInit{
     this.taskService.getTasks().subscribe(tasks=>{
       this.taskLists = tasks;
     })
+  }
+  
+  filterTasks(filteredList: Task[]): void {
+    this.taskLists = filteredList;
   }
   selectedList: { id: number; name: string } | null = null;
   newTask = { shortDescription: '', longDescription: '', dueDate: '' };

@@ -1,9 +1,9 @@
 <form [formGroup]="searchTaskForm">
     <mat-form-field appearance="outline">
-        <mat-label>search a task</mat-label>
+        <mat-label>recherche d'une liste</mat-label>
         <input matInput placeholder="demo" formControlName="taskName" (keyup)="searchList()" required>
-        <mat-icon matSuffix>description</mat-icon>
-        <mat-error align="end">this field is required</mat-error>
+        <mat-icon matSuffix>list</mat-icon>
+        <mat-error align="end">ce champs est obligatoire</mat-error>
     </mat-form-field>
     <br />
     <button mat-mini-fab [disabled]="!searchTaskForm.valid">
